@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+
+  web:
+    build: .
+    ports:
+      - 8888:80
+    restart: always
+    depends_on: 
+      - db
+    environment:
+      DATABASE_URL: mysql://user:password@db:3306/user
+      ROCKET_ENV: prod
+
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: user
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
